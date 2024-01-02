@@ -1,0 +1,10 @@
+service: () -> {
+    authenticateParticipant: (text, text) -> (variant {Ok:text; Err:text});
+    createParticipant: (text, text, float64) -> (variant {Ok:text; Err:text});
+    createTransaction: (float64, text, text) -> (variant {Ok:text; Err:text});
+    getAuthenticatedParticipant: () -> (variant {Ok:text; Err:text}) query;
+    getEnergyBalance: () -> (variant {Ok:text; Err:text}) query;
+    getEnergyMarketDetails: () -> (variant {Ok:record {participants:vec record {id:principal; energyBalance:float64; username:text; password:text}; totalEnergyTraded:float64; transactions:vec record {id:principal; operation:text; buyerID:principal; timestamp:nat64; sellerID:principal; amount:float64}}; Err:text}) query;
+    getParticipantTransactions: () -> (variant {Ok:vec record {id:principal; operation:text; buyerID:principal; timestamp:nat64; sellerID:principal; amount:float64}; Err:text}) query;
+    signOut: () -> (variant {Ok:text; Err:text});
+}
