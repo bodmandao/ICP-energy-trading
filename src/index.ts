@@ -151,12 +151,9 @@ export default Canister({
     (username, password) => {
       const participant = participantStorage
         .values()
-        .filter((p: typeof EnergyParticipant) => p.username === username)[0];
-      if (!participant) {
-        return Err('Participant does not exist.');
-      }
-      if (participant.password !== password) {
-        return Err('Participant with provided credentials does not exist.');
+        .find((p: typeof EnergyParticipant) => p.username === username);
+      if (!participant || participant.password !== password) {
+        return Err('Participant does not exist or incorrect password.');
       }
       currentParticipant = participant;
       return Ok('Logged in');
