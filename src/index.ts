@@ -15,6 +15,8 @@ import {
   ic,
 } from 'azle';
 
+import { v4 as uuidv4 } from 'uuid';
+
 const EnergyTransaction = Record({
   id: Principal,
   amount: float64,
@@ -177,11 +179,7 @@ export default Canister({
 });
 
 function generateId(): Principal {
-  const randomBytes = new Array(29)
-    .fill(0)
-    .map((_) => Math.floor(Math.random() * 256));
-
-  return Principal.fromUint8Array(Uint8Array.from(randomBytes));
+  return Principal.fromText(uuidv4());
 }
 
 // a workaround to make uuid package work with Azle
